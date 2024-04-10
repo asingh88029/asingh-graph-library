@@ -1,5 +1,5 @@
 import React from 'react';
-import {BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, Label} from 'recharts';
+import {BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer} from 'recharts';
 
 
 /******************************************************************************************************************
@@ -10,8 +10,6 @@ import {BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, Label} from
  * @param {string} barColor -  The color code in hex of the bars in the chart.
  * @param {boolean} showCartesianGrid - Whether to show the Cartesian grid lines.
  * @param {boolean} showTooltip - Whether to show tooltips on hover.
- * @param {number} width -  The width of the chart container.
- * @param {number} height - The height of the chart container.
  * 
  * @returns {JSX.Element} A React component that renders a bar chart with the provided data and options.
  *****************************************************************************************************************/
@@ -28,13 +26,15 @@ const _BarChart = ({labels, data, barColor, showCartesianGrid, showTooltip, widt
   })
 
   return (
-    <BarChart width={width} height={height} data={GRAPH_DATA}>
-      {showCartesianGrid && <CartesianGrid strokeDasharray="3 3" />}
-      <XAxis dataKey="name"/>
-      <YAxis/>
-      {showTooltip && <Tooltip />}
-      <Bar dataKey="value" fill={barColor} />   
-    </BarChart>
+    <ResponsiveContainer className="min-h-40 sm:min-h-20 md:min-h-80 mx-auto">
+      <BarChart data={GRAPH_DATA}>
+          {showCartesianGrid && <CartesianGrid strokeDasharray="3 3" />}
+          <XAxis dataKey="name"/>
+          <YAxis/>
+          {showTooltip && <Tooltip />}
+          <Bar dataKey="value" fill={barColor} />
+      </BarChart>
+    </ResponsiveContainer>
   )
 
 }
@@ -45,8 +45,6 @@ _BarChart.defaultProps = {
   barColor : "#0000FF",
   showCartesianGrid : false,
   showTooltip : false,
-  width : 730,
-  height : 250
 }
 
 module.exports = _BarChart;
